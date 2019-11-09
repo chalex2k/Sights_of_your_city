@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 class Landmark(models.Model):
@@ -15,3 +16,8 @@ class Landmark(models.Model):
 
     def __str__(self):
         return self.name
+
+    objects = models.Manager()
+
+    def get_absolute_url(self):
+        return reverse('sights:landmark_detail', args=[self.name])

@@ -1,0 +1,12 @@
+{% extends "sights/base.html" %}
+{% block title %}My sights{% endblock %}
+{% block content %}
+  <h1>My sights (list.html)</h1>
+  {% for landmark in landmarks %}
+    <h2>
+      <a href="{{ landmark.get_absolute_url }}">{{ landmark.name }}</a>
+    </h2>
+    {{ landmark.information|truncatewords:30|linebreaks }}
+  {% endfor %}
+ {% include "pagination.html" with page=page_obj %}
+{% endblock %}

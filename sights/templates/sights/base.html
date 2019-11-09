@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+     <title>{% block title %}{% endblock %}</title>
+     <link href='{% static "css/sights.css" %}' rel="stylesheet">
+</head>
+<body>
+ <div id="content">
+    {% block content %}{% endblock %}
+  </div>
+  <div id="sidebar">
+    <h2>Sights of the city</h2>
+    <p>Sights of your city.</p>
+  </div>
+</body>
+</html>

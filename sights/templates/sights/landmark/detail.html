@@ -1,0 +1,8 @@
+{% extends "sights/base.html" %}
+{% block title %}{{ landmark.name }}{% endblock %}
+{% block content %}
+  <h1>{{ landmark.name }}</h1>
+  <p> Информация: {{ landmark.information }} </p>
+  {{ landmark.type|linebreaks }}
+  Address{{ landmark.address}}
+{% endblock %}
