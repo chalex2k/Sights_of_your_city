@@ -21,3 +21,16 @@ class Landmark(models.Model):
 
     def get_absolute_url(self):
         return reverse('sights:landmark_detail', args=[self.name])
+
+
+class Comment(models.Model):
+    landmark = models.ForeignKey(Landmark, on_delete=models.CASCADE, related_name='comments')
+    body = models.CharField(max_length=500)
+    created = models.DateField(auto_now_add=True)
+    active = models.BooleanField(default=True)
+
+    class Meta:
+         ordering = ('created',)
+
+    def __str__(self):
+        return 'Comment  by ... on{}'.format(self.landmark)
