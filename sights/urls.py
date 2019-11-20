@@ -6,5 +6,6 @@ app_name = 'sights'
 urlpatterns = [
     #path('', views.landmark_list, name='landmark_list'),
     path('', views.LandmarkListView.as_view(), name='landmark_list'),
+    path('login/', views.user_login, name='login'),
     path('<name>/', views.landmark_detail, name='landmark_detail'),
 ]
