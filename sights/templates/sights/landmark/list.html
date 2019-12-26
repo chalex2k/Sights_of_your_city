@@ -2,7 +2,13 @@
 {% block title %}My sights{% endblock %}
 {% block content %}
   <h1>My sights (list.html)</h1>
-  {% for landmark in landmarks %}
+  <h2>Find landmark:</h2>
+    <form action="." method="post">
+      {{ find_form.as_p }}
+      {% csrf_token %}
+      <p><input type="submit" value="Find"></p>
+    </form>
+{% for landmark in landmarks %}
     <h2>
       <a href="{{ landmark.get_absolute_url }}">{{ landmark.name }}</a>
     </h2>

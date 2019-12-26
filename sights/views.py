@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login
 from .models import Landmark, Comment, ProposedLandmark
 from django.views.generic import ListView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .forms import CommentForm, LoginForm, ProposedLandmarkForm
+from .forms import CommentForm, LoginForm, ProposedLandmarkForm, FindForm
 from account.models import Profile
 
 
@@ -28,8 +28,24 @@ def user_login(request):
 
 
 def landmark_list(request):
-    lm = Landmark.objects.all()
-    return render(request, 'sights/landmark/list.html', {'landmarks': lm})
+    if request.method == 'POST':
+        find_form = FindForm(data=request.POST)
+        if find_form.is_valid():
+            cd = find_form.cleaned_data
+            lm = Landmark.objects.filter(name__icontains=cd['name'],
+                                         information__icontains=cd['information'],
+                                         type__icontains=cd['type'],
+                                         address__icontains=cd['address'])
+
+        else:
+            lm = Landmark.objects.all()
+    else:
+        lm = Landmark.objects.all()
+    find_form = FindForm()
+    paginate_by = 3
+    return render(request, 'sights/landmark/list.html', {'landmarks': lm,
+                                                         'find_form': find_form,
+                                                         'paginate_by': paginate_by})
 
 
 def landmark_detail(request, name):
@@ -77,14 +93,14 @@ def landmark_propose(request):
         propose_form = ProposedLandmarkForm()
     else:
         propose_form = None
-    return render(request, 'sights/landmark/propose.html', {    'new_propose': new_propose,
-                                                                'propose_form': propose_form})
+    return render(request, 'sights/landmark/propose.html', {'new_propose': new_propose,
+                                                            'propose_form': propose_form})
 
 
 
 
 class LandmarkListView(ListView):
-    queryset = Landmark.objects.all()
+    queryset = Landmark.objects.filter(information__contains='ghb')
     context_object_name = 'landmarks'
     paginate_by = 3
     template_name = 'sights/landmark/list.html'
