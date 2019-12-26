@@ -1,16 +1,25 @@
 {% load static %}
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-     <title>{% block title %}{% endblock %}</title>
-     <link href='{% static "css/sights.css" %}' rel="stylesheet">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>{% block title %}{% endblock %}</title>
+    <meta name="keywords" content="free css templates, tripod, blog, theme" />
+    <meta name="description" content="Tripod - free CSS template provided by templatemo.com" />
+    <link href='{% static "css/sights.css" %}' rel="stylesheet">
 </head>
 <body>
- <div id="content">
+
     {% block content %}{% endblock %}
-  </div>
-  <div id="sidebar">
-    <h2>Sights of the city</h2>
-    <p>Sights of your city.</p>
-  </div>
+
+<div id="templatemo_footer_wrapper">
+	<div id="templatemo_footer">
+
+		Copyright © 2048 <a href="#">Your Company Name</a> |
+        <a href="http://bayguzin.ru/" target="_parent">Website Templates</a> by <a href="http://bayguzin.ru/" target="_parent">Free CSS Templates</a>
+
+    </div> <!-- end of templatemo_copyright -->
+</div> <!-- end of copyright wrapper -->
+
 </body>
 </html>
