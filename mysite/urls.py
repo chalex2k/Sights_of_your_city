@@ -20,4 +20,6 @@ urlpatterns = [
     path('grappelli/', include('grappelli.urls')), # grappelli URLS
     path('admin/', admin.site.urls),
     path('sights/', include('sights.urls', namespace='sights')),
+    path('account/', include('account.urls')),
+    path('', include('social_django.urls', namespace='social')),
 ]

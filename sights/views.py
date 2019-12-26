@@ -5,6 +5,7 @@ from .models import Landmark, Comment
 from django.views.generic import ListView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .forms import CommentForm, LoginForm
+from account.models import Profile
 
 
 def user_login(request):
@@ -44,10 +45,15 @@ def landmark_detail(request, name):
             new_comment = comment_form.save(commit=False)
             # привязываем комментарий к текущей статье
             new_comment.landmark = landmark
+            # привязываем комментарий к текущему пользователю
+            curr_user = Profile.objects.get(user=request.user)
+            new_comment.profile = curr_user
             # сохраняем комментарий в базе данных
             new_comment.save()
-    else:
+    elif request.user.is_authenticated:
         comment_form = CommentForm()
+    else:
+        comment_form = None
     return render(request, 'sights/landmark/detail.html', {'landmark': landmark,
                                                            'comments': comments,
                                                            'new_comment': new_comment,
