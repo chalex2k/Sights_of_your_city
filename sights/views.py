@@ -1,10 +1,10 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
-from .models import Landmark, Comment
+from .models import Landmark, Comment, ProposedLandmark
 from django.views.generic import ListView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from .forms import CommentForm, LoginForm
+from .forms import CommentForm, LoginForm, ProposedLandmarkForm
 from account.models import Profile
 
 
@@ -58,6 +58,29 @@ def landmark_detail(request, name):
                                                            'comments': comments,
                                                            'new_comment': new_comment,
                                                            'comment_form': comment_form})
+
+
+def landmark_propose(request):
+    new_propose = None
+    if request.method == 'POST':
+        # пользователь отправил форму
+        propose_form = ProposedLandmarkForm(data=request.POST)
+        if propose_form.is_valid():
+            # создаём достопримечательность, но пока не сохраняем в базе
+            new_propose = propose_form.save(commit=False)
+            # привязываем достопримечательность к текущему пользователю
+            curr_user = Profile.objects.get(user=request.user)
+            new_propose.author = curr_user
+            # сохраняем достопримечательность в базе данных
+            new_propose.save()
+    elif request.user.is_authenticated:
+        propose_form = ProposedLandmarkForm()
+    else:
+        propose_form = None
+    return render(request, 'sights/landmark/propose.html', {    'new_propose': new_propose,
+                                                                'propose_form': propose_form})
+
+
 
 
 class LandmarkListView(ListView):

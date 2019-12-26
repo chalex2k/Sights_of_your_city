@@ -1,0 +1,18 @@
+{% extends "sights/base.html" %}
+{% block title %} Добавление достопримечательности {% endblock %}
+{% block content %}
+  <h1>Здесь вы можете предложить добавить новую достопримечательность на сайт</h1>
+
+Hello {{ request.user.first_name }}
+
+  {% if new_propose %}
+    <h2>Your propose has been added.</h2>
+  {% elif propose_form %}
+    <h2>Add a new propose:</h2>
+    <form action="." method="post">
+      {{ propose_form.as_p }}
+      {% csrf_token %}
+      <p><input type="submit" value="Add propose"></p>
+    </form>
+    {% endif %}
+{% endblock %}
