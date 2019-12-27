@@ -1,6 +1,42 @@
 {% extends "sights/base.html" %}
 {% block title %} Добавление достопримечательности {% endblock %}
 {% block content %}
+
+<div id="templatemo_header_wrapper">
+	<div id="templatemo_header">
+
+       <div id="site_title">
+            <h1><a href="index.html">
+                <img src="../../static/css/images/templatemo_logo.png" alt="tripod blog" /></a>
+                <span>free blog template</span>
+            </h1>
+        </div>
+
+        <div id="templatemo_rss">
+            {% if  request.user.first_name  %}
+            <a href="../account/logout" target="_parent">{{request.user.first_name}}<br /><span>Выйти</span></a>
+            {% else %}
+            <a href="../account/login" target="_parent">Не авторизован<br /><span>Войти</span></a>
+            {% endif %}
+    	</div>
+
+    </div> <!-- end of header -->
+
+    <div id="templatemo_menu">
+
+        <ul>
+            <li><a href="index.html" class="current">Достопримечательности</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+
+    </div> <!-- end of templatemo_menu -->
+
+</div> <!-- end of header wrapper -->
+
+
+
+
+
   <h1>Здесь вы можете предложить добавить новую достопримечательность на сайт</h1>
 
 Hello {{ request.user.first_name }}
@@ -15,4 +51,7 @@ Hello {{ request.user.first_name }}
       <p><input type="submit" value="Add propose"></p>
     </form>
     {% endif %}
+
+
+
 {% endblock %}

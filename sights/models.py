@@ -6,11 +6,13 @@ from account.models import Profile
 
 
 class Landmark(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=100)
     information = models.TextField()
     type = models.CharField(max_length=20)
     address = models.CharField(max_length=100)
-    path_photos = models.CharField(max_length=100)
+    author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='landmarks')
+    comment = models.TextField()
+    active = models.BooleanField(default=True)
 
     class Meta:
         ordering = ('-name',)
@@ -22,27 +24,6 @@ class Landmark(models.Model):
 
     def get_absolute_url(self):
         return reverse('sights:landmark_detail', args=[self.name])
-
-
-class ProposedLandmark(models.Model):
-    name = models.CharField(max_length=50)
-    author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='landmarks')
-    information = models.TextField()
-    type = models.CharField(max_length=20)
-    address = models.CharField(max_length=100)
-    path_photos = models.CharField(max_length=100)
-    comment = models.TextField()
-
-    class Meta:
-        ordering = ('-name',)
-
-    def __str__(self):
-        return self.name
-
-#    objects = models.Manager()
-
-#    def get_absolute_url(self):
-#        return reverse('sights:landmark_detail', args=[self.name])
 
 
 class Comment(models.Model):
@@ -57,3 +38,8 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'Comment  by ... on{}'.format(self.landmark)
+
+
+class Photo(models.Model):
+    image = models.ImageField(upload_to='photos')
+    landmark = models.ForeignKey(Landmark, on_delete=models.CASCADE, related_name='photos')

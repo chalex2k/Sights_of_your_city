@@ -14,9 +14,9 @@
 
         <div id="templatemo_rss">
             {% if  request.user.first_name  %}
-            <a href="" target="_parent">{{request.user.first_name}}<br /><span>Выйти</span></a>
+            <a href="../account/logout" target="_parent">{{request.user.first_name}}<br /><span>Выйти</span></a>
             {% else %}
-            <a href="" target="_parent">Не авторизован<br /><span>Войти</span></a>
+            <a href="../account/login" target="_parent">Не авторизован<br /><span>Войти</span></a>
             {% endif %}
     	</div>
 
@@ -58,7 +58,7 @@
         <div id="templatemo_sidebar_two">
 
     	<h4>Поиск достопримечательностей</h4>
-        <form action="." method="post">
+        <form action="." method="get">
         {{ find_form.as_p }}
         {% csrf_token %}
         <p><input type="submit" value="Найти"></p>
