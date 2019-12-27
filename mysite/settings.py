@@ -15,6 +15,8 @@ import os, sys
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
+STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -133,3 +135,7 @@ LOGOUT_URL = 'logout'
 
 
 SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+MEDIA_DIR = os.path.join(BASE_DIR, '../photos')
+MEDIA_ROOT = MEDIA_DIR
+MEDIA_URL = '/photos/'

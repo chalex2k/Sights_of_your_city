@@ -45,7 +45,7 @@ Hello {{ request.user.first_name }}
     <h2>Your propose has been added.</h2>
   {% elif propose_form %}
     <h2>Add a new propose:</h2>
-    <form action="." method="post">
+    <form action="." method="post" enctype="multipart/form-data">
       {{ propose_form.as_p }}
       {% csrf_token %}
       <p><input type="submit" value="Add propose"></p>

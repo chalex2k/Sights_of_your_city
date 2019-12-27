@@ -1,7 +1,9 @@
 from django.contrib import admin
-from .models import Landmark, Comment
+from .models import Landmark, Comment, Photo
 
 admin.site.register(Landmark)
+
+admin.site.register(Photo)
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):

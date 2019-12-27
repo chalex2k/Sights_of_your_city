@@ -47,12 +47,15 @@
 
           <strong>Тип:</strong> {{ landmark.type|linebreaks }} | <strong>Адрес:</strong> {{ landmark.address}}
 
-          <img src="../../static/css/images/templatemo_image_01.jpg" alt="image 1" />
-
+          <img src= "{{ image }}"  alt="image 1" />
+        <!--../../static/css/images/templatemo_image_01.jpg-->
             <p>{{ landmark.information }}</p>
 
 			<div class="cleaner"></div>
-
+            Фото
+            {% for img in images %}
+            <img src= "{{ img }}"  alt="image 1" />
+            {% endfor %}
             <div class="comment_tab">
               Комментариев {{comments.count}}
             </div>

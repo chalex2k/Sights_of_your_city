@@ -43,3 +43,8 @@ class Comment(models.Model):
 class Photo(models.Model):
     image = models.ImageField(upload_to='photos')
     landmark = models.ForeignKey(Landmark, on_delete=models.CASCADE, related_name='photos')
+
+    @property
+    def photo_url(self):
+        if self.image and hasattr(self.image, 'url'):
+            return self.image.url

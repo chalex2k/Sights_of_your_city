@@ -32,6 +32,10 @@ def user_login(request):
 
 def landmark_detail(request, name):
     landmark = get_object_or_404(Landmark, name=name)
+    image = landmark.photos.all()
+    url_img = []
+    for i in image:
+        url_img.append(i.photo_url)
     # список активных комментариев данной статьи
     comments = landmark.comments.filter(active=True)
     new_comment = None
@@ -55,7 +59,9 @@ def landmark_detail(request, name):
     return render(request, 'sights/landmark/detail.html', {'landmark': landmark,
                                                            'comments': comments,
                                                            'new_comment': new_comment,
-                                                           'comment_form': comment_form})
+                                                           'comment_form': comment_form,
+                                                           'image': image[0].photo_url,
+                                                           'images': url_img})
 
 
 def landmark_propose(request):
@@ -75,12 +81,13 @@ def landmark_propose(request):
             new_propose.author = curr_user
             # сохраняем достопримечательность в базе данных
             new_propose.save()
-
+            print("всего фотографий ", len(request.FILES.getlist('photos')))
             for f in request.FILES.getlist('photos'):
                 data = f.read() #Если файл целиком умещается в памяти
                 photo = Photo()
-                photo.image.save(f.name, ContentFile(data))
                 photo.landmark = new_propose
+                photo.image.save(f.name, ContentFile(data))
+
                 photo.save()
 
     elif request.user.is_authenticated:
