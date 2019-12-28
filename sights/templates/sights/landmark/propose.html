@@ -6,17 +6,17 @@
 	<div id="templatemo_header">
 
        <div id="site_title">
-            <h1><a href="index.html">
-                <img src="../../static/css/images/templatemo_logo.png" alt="tripod blog" /></a>
-                <span>free blog template</span>
+            <h1><a href="../">
+                <img src="../../static/css/images/templatemo_logo.png" alt="Воронеж" /></a>
+                <span>Энциклопедия города</span>
             </h1>
         </div>
 
         <div id="templatemo_rss">
             {% if  request.user.first_name  %}
-            <a href="../account/logout" target="_parent">{{request.user.first_name}}<br /><span>Выйти</span></a>
+            <a href="../../account/logout" target="_parent">{{request.user.first_name}}<br /><span>Выйти</span></a>
             {% else %}
-            <a href="../account/login" target="_parent">Не авторизован<br /><span>Войти</span></a>
+            <a href="../../account/login" target="_parent">Не авторизован<br /><span>Войти</span></a>
             {% endif %}
     	</div>
 
@@ -25,8 +25,8 @@
     <div id="templatemo_menu">
 
         <ul>
-            <li><a href="index.html" class="current">Достопримечательности</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="../" class="current">Достопримечательности</a></li>
+            <li><a href="">Добавить достопримечательность</a></li>
         </ul>
 
     </div> <!-- end of templatemo_menu -->
@@ -34,24 +34,36 @@
 </div> <!-- end of header wrapper -->
 
 
+<div id="templatemo_content_wrapper">
 
+	<div id="templatemo_content_detail">
 
+    	<h1>Contact Information</h1>
 
-  <h1>Здесь вы можете предложить добавить новую достопримечательность на сайт</h1>
+        <p> Здесь вы можете предложить добавить новую достопримечательность на сайт. Прочитать о том, как написать заявку, чтобы вашу достопримечательность добавили можно <a href="" rel="nofollow">здесь</a> </p>
 
-Hello {{ request.user.first_name }}
+            <div class="cleaner_h40"></div>
 
-  {% if new_propose %}
+            <div id="contact_form">
+                {% if new_propose %}
     <h2>Your propose has been added.</h2>
   {% elif propose_form %}
-    <h2>Add a new propose:</h2>
-    <form action="." method="post" enctype="multipart/form-data">
-      {{ propose_form.as_p }}
-      {% csrf_token %}
-      <p><input type="submit" value="Add propose"></p>
-    </form>
+                <h2>Достопримечательность</h2>
+
+                <form method="post" name="contact" action="." enctype="multipart/form-data">
+
+                    {{ propose_form.as_p }}
+                    {% csrf_token %}
+
+                    <input style="font-weight: bold;" type="submit" class="submit_btn" name="submit" id="submit" value=" Добавить " />
+
+                </form>
     {% endif %}
+            </div>
 
+    	<div class="cleaner"></div>
 
+    </div> <!-- end of templatemo content -->
+</div> <!-- end of content wrapper -->
 
 {% endblock %}

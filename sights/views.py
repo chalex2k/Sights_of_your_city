@@ -39,19 +39,29 @@ def landmark_detail(request, name):
     # список активных комментариев данной статьи
     comments = landmark.comments.filter(active=True)
     new_comment = None
+    comment_form = None
+    curr_user = Profile.objects.get(user=request.user)
+    admin = curr_user.role
     if request.method == 'POST':
-        # пользователь отправил комментарий
-        comment_form = CommentForm(data=request.POST)
-        if comment_form.is_valid():
-            # создаём комментарий, но пока не сохраняем в базе
-            new_comment = comment_form.save(commit=False)
-            # привязываем комментарий к текущей статье
-            new_comment.landmark = landmark
-            # привязываем комментарий к текущему пользователю
-            curr_user = Profile.objects.get(user=request.user)
-            new_comment.profile = curr_user
-            # сохраняем комментарий в базе данных
-            new_comment.save()
+
+        if not admin:
+            # пользователь отправил комментарий
+            comment_form = CommentForm(data=request.POST)
+            if comment_form.is_valid():
+                cd = comment_form.cleaned_data
+                # создаём комментарий, но пока не сохраняем в базе
+                new_comment = Comment(body=cd['body'])
+                # привязываем комментарий к текущей статье
+                new_comment.landmark = landmark
+                # привязываем комментарий к текущему пользователю
+                curr_user = Profile.objects.get(user=request.user)
+                new_comment.profile = curr_user
+                # сохраняем комментарий в базе данных
+                new_comment.save()
+        else:
+            landmark.active = True
+            landmark.save()
+            new_comment = True
     elif request.user.is_authenticated:
         comment_form = CommentForm()
     else:
@@ -60,8 +70,9 @@ def landmark_detail(request, name):
                                                            'comments': comments,
                                                            'new_comment': new_comment,
                                                            'comment_form': comment_form,
-                                                           'image': image[0].photo_url,
-                                                           'images': url_img})
+                                                           'image': landmark.image.url,
+                                                           'images': url_img,
+                                                           'admin': admin})
 
 
 def landmark_propose(request):
@@ -79,6 +90,11 @@ def landmark_propose(request):
             # привязываем достопримечательность к текущему пользователю
             curr_user = Profile.objects.get(user=request.user)
             new_propose.author = curr_user
+
+            for f in request.FILES.getlist('main_photo'):
+                data = f.read() #Если файл целиком умещается в памяти
+                new_propose.image.save(f.name, ContentFile(data))
+
             # сохраняем достопримечательность в базе данных
             new_propose.save()
             print("всего фотографий ", len(request.FILES.getlist('photos')))
@@ -101,7 +117,7 @@ def landmark_propose(request):
 class LandmarkListView(ListView):
     #queryset = Landmark.objects.all()
     context_object_name = 'landmarks'
-    paginate_by = 3
+    paginate_by = 5
     template_name = 'sights/landmark/list.html'
 
     def get_context_data(self, **kwargs):
@@ -121,9 +137,9 @@ class LandmarkListView(ListView):
                                              type__icontains=cd['type'],
                                              address__icontains=cd['address'])
             else:
-                lm = Landmark.objects.all()
+                lm = Landmark.objects.filter(active=True)
         else:
-            lm = Landmark.objects.all()
+            lm = Landmark.objects.filter(active=True)
         return lm
 
 def landmark_list(request):
@@ -137,16 +153,22 @@ def landmark_list(request):
                                          address__icontains=cd['address'])
 
         else:
-            lm = Landmark.objects.all()
+            lm = Landmark.objects.filter(active=True)
     else:
-        lm = Landmark.objects.all()
+        lm = Landmark.objects.filter(active=True)
     find_form = FindForm()
     return ListView.as_view(
         queryset=lm,
         context_object_name = 'landmarks',
-        paginate_by = 3,
+        paginate_by = 5,
         template_name = 'sights/landmark/list.html',
     )(request, {'find_form': find_form, })
+
+
+def landmark_propose_list(request):
+    lm = Landmark.objects.filter(active=False)
+    return render(request, 'sights/landmark/propose_list.html', {'landmarks': lm})
+
 
 #def landmark_list(request):
 #    if request.method == 'POST':

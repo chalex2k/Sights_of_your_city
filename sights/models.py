@@ -12,7 +12,8 @@ class Landmark(models.Model):
     address = models.CharField(max_length=100)
     author = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='landmarks')
     comment = models.TextField()
-    active = models.BooleanField(default=True)
+    image = models.ImageField(upload_to='photos')
+    active = models.BooleanField(default=False)
 
     class Meta:
         ordering = ('-name',)
@@ -29,7 +30,7 @@ class Landmark(models.Model):
 class Comment(models.Model):
     landmark = models.ForeignKey(Landmark, on_delete=models.CASCADE, related_name='comments')
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='comments')
-    body = models.CharField(max_length=500)
+    body = models.TextField()
     created = models.DateField(auto_now_add=True)
     active = models.BooleanField(default=True)
 

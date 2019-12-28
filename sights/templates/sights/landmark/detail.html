@@ -4,48 +4,44 @@
 
 <div id="templatemo_header_wrapper">
 	<div id="templatemo_header">
-
        <div id="site_title">
-            <h1><a href="index.html">
-                <img src="../../static/css/images/templatemo_logo.png" alt="tripod blog" /></a>
-                <span>free blog template</span>
+            <h1><a href="../">
+                <img src="../../static/css/images/templatemo_logo.png" alt="Воронеж" /></a>
+                <span>Энциклопедия города</span>
             </h1>
         </div>
 
         <div id="templatemo_rss">
             {% if  request.user.first_name  %}
-            <a href="../account/logout" target="_parent">{{request.user.first_name}}<br /><span>Выйти</span></a>
+            <a href="../../account/logout" target="_parent">{{request.user.first_name}}<br /><span>Выйти</span></a>
             {% else %}
-            <a href="../account/login" target="_parent">Не авторизован<br /><span>Войти</span></a>
+            <a href="../../account/login" target="_parent">Не авторизован<br /><span>Войти</span></a>
             {% endif %}
     	</div>
-
     </div> <!-- end of header -->
 
     <div id="templatemo_menu">
-
         <ul>
-            <li><a href="index.html" class="current">Достопримечательности</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="../" class="current">Достопримечательности</a></li>
+            {% if  request.user.first_name  %}
+            <li><a href="../propose">Добавить достопримечательность</a></li>
+            {% endif %}
         </ul>
-
     </div> <!-- end of templatemo_menu -->
-
 </div> <!-- end of header wrapper -->
-
 
 
 <div id="templatemo_main_wrapper">
 <div id="templatemo_content_wrapper">
 
 
-    <div id="templatemo_content">
+    <div id="templatemo_content_detail">
 
         <div class="post_section"><span class="bottom"></span>
 
           <h2>{{ landmark.name }} </h2>
 
-          <strong>Тип:</strong> {{ landmark.type|linebreaks }} | <strong>Адрес:</strong> {{ landmark.address}}
+          <strong>Тип:</strong> {{ landmark.type }} | <strong>Адрес:</strong> {{ landmark.address}}
 
           <img src= "{{ image }}"  alt="image 1" />
         <!--../../static/css/images/templatemo_image_01.jpg-->
@@ -56,9 +52,30 @@
             {% for img in images %}
             <img src= "{{ img }}"  alt="image 1" />
             {% endfor %}
+
+            {% if admin %}
+            <h3>Соощение от пользователя</h3>
+            <p>{{ landmark.comment }}</p>
+
+            {% if new_comment %}
+              <h2>Достопримечательность добавлена.</h2>
+          {% else %}
+
+                    <form action="#" method="post">
+
+                            {% csrf_token %}
+
+                        <input type="submit" name="Submit" value="Добавить" class="submit_btn" />
+                    </form>
+
+            {% endif %}
+
+            {% else %}
+
             <div class="comment_tab">
               Комментариев {{comments.count}}
             </div>
+
 
           <div id="comment_section">
                 <ol class="comments first_level">
@@ -80,10 +97,11 @@
                                 </ol>
           </div>
 
+
           {% if new_comment %}
               <h2>Your comment has been added.</h2>
           {% elif comment_form %}
-          <div id="comment_form">
+          <div id="">
                     <h3>Напишите комментарий</h3>
 
                     <form action="#" method="post">
@@ -111,16 +129,13 @@
 
             {% endif %}
 
-
+{% endif %}
 
     </div>
 
 
 
-
-
-
-
     </div> <!-- end of content wrapper -->
 </div>
+    </div>
   {% endblock %}
