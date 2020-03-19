@@ -15,5 +15,4 @@
     * Подтверждение запроса на добавление достопримечательности
     
 ## Демонстрационное видео
-Можно увидеть 
-[![здесь](https://img.youtube.com/vi/-3AxnCiWLd0/0.jpg)](https://youtu.be/-3AxnCiWLd0)
+[![если вы видете этот текст видео не доступно(](https://img.youtube.com/vi/-3AxnCiWLd0/0.jpg)](https://youtu.be/-3AxnCiWLd0)
