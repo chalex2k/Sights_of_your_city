@@ -13,16 +13,11 @@ class CommentForm(forms.Form):
 
 
 
-#class ProposedLandmarkForm(forms.ModelForm):
-#    class Meta:
-#        model = ProposedLandmark
-#        fields = ('name', 'information', 'type', 'address', 'path_photos', 'comment')
-
 class FindForm(forms.Form):
-    name = forms.CharField(required=False)
-    information = forms.CharField(required=False)
-    type = forms.CharField(required=False)
-    address = forms.CharField(required=False)
+    name = forms.CharField(required=False, label='Название')
+    information = forms.CharField(required=False, label='Информация')
+    type = forms.CharField(required=False, label='Тип')
+    address = forms.CharField(required=False, label='Адрес')
 
 class LoginForm(forms.Form):
     username = forms.CharField()
@@ -33,8 +28,8 @@ class ProposedLandmarkForm(forms.Form):
     information = forms.CharField(label='Информация', widget=forms.Textarea)
     type = forms.CharField(label='Тип')
     address = forms.CharField(label='Адрес')
-    comment = forms.CharField(label='Комментарий для администратора', widget=forms.Textarea)
+    comment = forms.CharField(label='Комментарий для администратора'    , widget=forms.Textarea)
     main_photo = forms.ImageField(required=False, label=u'Основное фото',
                               widget=forms.FileInput(attrs={'multiple': 'multiple'}))
 
-    photos = forms.ImageField(required=False , label=u'Фотографии', widget=forms.FileInput(attrs={'multiple': 'multiple'}))
+    photos = forms.ImageField(required=False , label=u'Ещё фотографии', widget=forms.FileInput(attrs={'multiple': 'multiple'}))

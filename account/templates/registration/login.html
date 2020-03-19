@@ -1,31 +1,52 @@
 {% extends "base.html" %}
-
-{% block title %}Log-in{% endblock %}
-
+{% block title %}Login{% endblock %}
 {% block content %}
-  <h1>Log-in</h1>
+<div id="templatemo_header_wrapper">
+	<div id="templatemo_header">
+
+       <div id="site_title">
+            <h1><a href="">
+                <img src="../../static/css/images/templatemo_logo.png" alt="Воронеж" /></a>
+                <span>Энциклопедия города</span>
+            </h1>
+        </div>
+
+        <div id="templatemo_rss">
+            <a href="" target="_parent">Не авторизован<br /><span>Войти</span></a>
+    	</div>
+
+    </div> <!-- end of header -->
+    <div id="templatemo_menu">
+
+        <ul>
+            <li><a href="../../sights/" class="current">Достопримечательности</a></li>
+        </ul>
+
+    </div> <!-- end of templatemo_menu -->
+
+</div> <!-- end of header wrapper -->
+
+<div id="templatemo_main_wrapper">
+<div id="templatemo_content_wrapper">
+
+      <div id="contact_form">
   {% if form.errors %}
     <p>
       Your username and password didn't match.
       Please try again.
     </p>
   {% else %}
-    <p>Please, use the following form to log-in. If you don't have an account <a href="{% url "register" %}">register here</a></p>
+    <p>Используйте форму ниже для входа. Если вы не имеете аккаунта <a href="{% url "register" %}">зарегистрируйтесь здесь.</a></p>
   {% endif %}
-  <div class="login-form">
+
     <form action="{% url 'login' %}" method="post">
       {{ form.as_p }}
       {% csrf_token %}
       <input type="hidden" name="next" value="{{ next }}" />
-      <p><input type="submit" value="Log-in"></p>
+      <p><input type="submit" value="Войти"></p>
     </form>
-    <p><a href="{% url "password_reset" %}">Forgotten your  password?</a></p>
-  </div>
-  <div class="social">
-    <ul>
-      <li class="facebook"><a href="{% url "social:begin" "facebook" %}">Sign in with Facebook</a></li>
-      <li class="twitter"><a href="{% url "social:begin" "twitter" %}">Login with Twitter</a></li>
-      <li class="google"><a href="{% url "social:begin" "google-oauth2" %}">Login with Google</a></li>
-    </ul>
-  </div>
+
+     </div>
+        </div> <!-- end of content wrapper -->
+</div>
 {% endblock %}

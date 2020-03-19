@@ -1,8 +1,38 @@
 {% extends "base.html" %}
-
-{% block title %}Welcome{% endblock %}
-
+{% block title %}Registration{% endblock %}
 {% block content %}
-  <h1>Welcome {{ new_user.first_name }}!</h1>
-  <p>Your account has been successfully created. Now you can <a href="{% url "login" %}">log in</a>.</p>
+<div id="templatemo_header_wrapper">
+	<div id="templatemo_header">
+
+       <div id="site_title">
+            <h1><a href="">
+                <img src="../../static/css/images/templatemo_logo.png" alt="Воронеж" /></a>
+                <span>Энциклопедия города</span>
+            </h1>
+        </div>
+
+        <div id="templatemo_rss">
+            <a href="" target="_parent">Не авторизован<br /><span>Войти</span></a>
+    	</div>
+
+    </div> <!-- end of header -->
+    <div id="templatemo_menu">
+
+        <ul>
+            <li><a href="../../sights/" class="current">Достопримечательности</a></li>
+        </ul>
+
+    </div> <!-- end of templatemo_menu -->
+
+</div> <!-- end of header wrapper -->
+
+<div id="templatemo_main_wrapper">
+<div id="templatemo_content_wrapper">
+ <div id="contact_form">
+  <h2>Регистрация завершена</h2>
+  <p>Ваш аккаунт был успешно создан. Теперь вы можете <a href="{% url "login" %}">войти</a>.</p>
+ </div>
+
+</div> <!-- end of content wrapper -->
+</div>
 {% endblock %}

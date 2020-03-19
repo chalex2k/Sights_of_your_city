@@ -1,13 +1,44 @@
 {% extends "base.html" %}
-
-{% block title %}Create an account{% endblock %}
-
+{% block title %}Registration{% endblock %}
 {% block content %}
-  <h1>Create an account</h1>
-  <p>Please, sign up using the following form:</p>
+<div id="templatemo_header_wrapper">
+	<div id="templatemo_header">
+
+       <div id="site_title">
+            <h1><a href="">
+                <img src="../../static/css/images/templatemo_logo.png" alt="Воронеж" /></a>
+                <span>Энциклопедия города</span>
+            </h1>
+        </div>
+
+        <div id="templatemo_rss">
+            <a href="" target="_parent">Не авторизован<br /><span>Войти</span></a>
+    	</div>
+
+    </div> <!-- end of header -->
+    <div id="templatemo_menu">
+
+        <ul>
+            <li><a href="../../sights/" class="current">Достопримечательности</a></li>
+        </ul>
+
+    </div> <!-- end of templatemo_menu -->
+
+</div> <!-- end of header wrapper -->
+
+<div id="templatemo_main_wrapper">
+<div id="templatemo_content_wrapper">
+    <div id='templatemo_content'>
+ <div id="contact_form">
+  <h1>Регистрация</h1>
+  <p>Заполните следующие поля:</p>
   <form action="." method="post">
     {{ user_form.as_p }}
     {% csrf_token %}
-    <p><input type="submit" value="Create my account"></p>
+    <p><input type="submit" value="Создать аккаунт"></p>
   </form>
+ </div>
+</div>
+</div> <!-- end of content wrapper -->
+</div>
 {% endblock %}

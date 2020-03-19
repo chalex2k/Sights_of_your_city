@@ -130,6 +130,7 @@ PROJECT_ROOT = os.path.dirname(__file__)
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 LOGIN_REDIRECT_URL = 'dashboard'
+LOGOUT_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 

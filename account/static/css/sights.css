@@ -332,10 +332,10 @@ cite span { color: #fff; }
 	border: 1px solid #CCC;
 	display:block;
 	font-size:1.1em;
-	height:120px;
+	height:150px;
 	margin-top:5px;
 	padding:5px;
-	width: 600px;
+	width: 400px;
 }
 
 #comment_form .form_row {
@@ -345,7 +345,7 @@ cite span { color: #fff; }
 
 #comment_form form input {
 	margin-top: 5px;
-	width: 300px;
+	width: 200px;
 	background:#FFFFFF none repeat fixed 0 0;
 	border: 1px solid #CCC;
 }
@@ -355,11 +355,6 @@ cite span { color: #fff; }
 }
 
 #contact_form {
-	float: left;
-	padding: 0;
-}
-
-#contact_form_auth {
 	float: left;
 	padding: 0;
 }
@@ -413,7 +408,7 @@ cite span { color: #fff; }
 }
 
 #contact_form form .input_field {
-	width: 600px;
+	width: 400px;
 	padding: 6px 0;
 	background: #fff;
 	border: 1px solid #ccc;
@@ -421,7 +416,7 @@ cite span { color: #fff; }
 
 #contact_form form label {
 	display: block;
-	width: 100px;
+	width: 300px;
 	margin-right: 10px;
 	font-size: 14px;	
 }
@@ -434,9 +429,8 @@ cite span { color: #fff; }
 }
 
 #contact_form form .submit_btn {
-	margin-left: 50px;
+	margin-left: 110px;
 }
-
 
 /* sidebar one */
 

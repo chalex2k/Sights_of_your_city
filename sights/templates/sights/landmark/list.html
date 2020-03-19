@@ -25,9 +25,12 @@
     <div id="templatemo_menu">
 
         <ul>
-            <li><a href="" class="current">Достопримечательности</a></li>
+            <li><a href="../sights" class="current">Достопримечательности</a></li>
             {% if  request.user.first_name  %}
             <li><a href="propose">Добавить достопримечательность</a></li>
+            {% if request.user.role %}
+            <li><a href="/propose_list/" class="current">Предложенные</a></li>
+            {% endif %}
             {% endif %}
         </ul>
 
@@ -40,6 +43,7 @@
 
 
     <div id="templatemo_content">
+        {% if landmarks.count > 0 %}
 {% for landmark in landmarks %}
 
         <div class="post_section"><span class="bottom"></span>
@@ -55,19 +59,23 @@
             </div>
   {% endfor %}
  {% include "pagination.html" with page=page_obj %}
+        {% else %}
+        <h3>Ничего не найдено</h3>
+        {% endif %}
     </div>
 
 
 
         <div id="templatemo_sidebar_two">
-
+        <div id="comment_form">
     	<h4>Поиск достопримечательностей</h4>
+            <p>Заполните одно или несколько полей</p>
         <form action="." method="get">
         {{ find_form.as_p }}
         {% csrf_token %}
         <p><input type="submit" value="Найти"></p>
         </form>
-
+        </div>
         <div class="cleaner_h40"></div>
 
 

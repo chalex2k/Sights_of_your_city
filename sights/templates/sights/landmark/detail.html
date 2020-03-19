@@ -3,7 +3,7 @@
 {% block content %}
 
 <div id="templatemo_header_wrapper">
-	<div id="templatemo_header">
+    <div id="templatemo_header">
        <div id="site_title">
             <h1><a href="../">
                 <img src="../../static/css/images/templatemo_logo.png" alt="Воронеж" /></a>
@@ -12,12 +12,12 @@
         </div>
 
         <div id="templatemo_rss">
-            {% if  request.user.first_name  %}
+            {% if  request.user.is_authenticated %}
             <a href="../../account/logout" target="_parent">{{request.user.first_name}}<br /><span>Выйти</span></a>
             {% else %}
             <a href="../../account/login" target="_parent">Не авторизован<br /><span>Войти</span></a>
             {% endif %}
-    	</div>
+        </div>
     </div> <!-- end of header -->
 
     <div id="templatemo_menu">
@@ -47,8 +47,7 @@
         <!--../../static/css/images/templatemo_image_01.jpg-->
             <p>{{ landmark.information }}</p>
 
-			<div class="cleaner"></div>
-            Фото
+            <div class="cleaner"></div>
             {% for img in images %}
             <img src= "{{ img }}"  alt="image 1" />
             {% endfor %}
@@ -84,7 +83,7 @@
                             <div class="comment_box commentbox1">
 
                                 <div class="comment_text">
-                                    <div class="comment_author">{{comment.author.name}}<span class="date">{{ comment.created }}</div>
+                                    <div class="comment_author">{{comment.profile.user.first_name}}<span class="date">{{ comment.created }}</div>
                                   <p>{{ comment.body|linebreaks }} </p>
                                 </div>
                                 <div class="cleaner"></div>
@@ -92,35 +91,22 @@
 
                         </li>
                     {% empty %}
-                  <p>There are no comments yet.</p>
+                  <p>Комментариев нет</p>
                   {% endfor %}
                                 </ol>
-          </div>
+
 
 
           {% if new_comment %}
-              <h2>Your comment has been added.</h2>
+              <h3>Ваш комментарий был добавлен.</h3>
           {% elif comment_form %}
-          <div id="">
+          <div id="comment_form">
                     <h3>Напишите комментарий</h3>
 
                     <form action="#" method="post">
 
                             {{ comment_form.as_p }}
                             {% csrf_token %}
-
-                      <!--  <div class="form_row">
-                            <label>Name ( Required )</label><br />
-                            <input type="text" name="name" />
-                        </div>
-                        <div class="form_row">
-                            <label>Email  ( Required, will not be published )</label><br />
-                            <input type="text" name="name" />
-                        </div>
-                        <div class="form_row">
-                            <label>Your comment</label><br />
-                            <textarea  name="comment" rows="" cols=""></textarea>
-                        </div>  -->
 
                         <input type="submit" name="Submit" value="Добавить" class="submit_btn" />
                     </form>
@@ -130,7 +116,7 @@
             {% endif %}
 
 {% endif %}
-
+</div>
     </div>
 
 

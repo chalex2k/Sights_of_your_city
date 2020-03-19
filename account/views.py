@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -32,8 +32,7 @@ def user_login(request):
 
 @login_required
 def dashboard(request):
-    return render(request,
-                  'sights/landmark/list.html')
+    return redirect('/sights/')
 
 
 def register(request):
